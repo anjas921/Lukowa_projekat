@@ -96,3 +96,139 @@ yearly_returns_TCEHY$Volatility_Low[1] <- "/"
 yearly_returns_TCEHY$Volatility_Low[1] <- sd(yearly_returns_TCEHY$Low)
 yearly_returns_TCEHY$Volatility_Last[1] <- "/"
 yearly_returns_TCEHY$Volatility_Last[1] <- sd(yearly_returns_TCEHY$Last)
+
+
+#--------------------------------------------------------------------------------------------------------------
+# Visualizing both returns and raw prices on graphs and charts
+#--------------------------------------------------------------------------------------------------------------
+
+colnames(TCEHY)[1]<-"Date"
+  
+# RAW PRICES
+  
+  # CANDLESTICK CHART PATTERN
+    
+    # Load libraries
+    install.packages("plotly")
+    library(plotly)
+    library(quantmod)
+    
+    # Convert date to character for better labeling
+    TCEHY$Date<- as.character(TCEHY$Date)
+    
+    # Create a candlestick chart
+    fig <- plot_ly(data = TCEHY, type = "candlestick",
+                   x = ~Date, open = ~Open, high = ~High, low = ~Low, close = ~Last,
+                   increasing = list(fillcolor = "green", line = list(color = "green")),
+                   decreasing = list(fillcolor = "red", line = list(color = "red")))
+    fig <- fig %>% layout(title = "TCEHY Raw Prices Candlestick Chart", xaxis = list(title = "Date"), yaxis = list(title = "Price"))
+    
+    # Display the chart
+    fig
+
+# RETURNS
+  
+  # CANDLESTICK CHART PATTERN
+  
+    # DAILY
+    
+    # Load libraries
+    install.packages("plotly")
+    library(plotly)
+    library(quantmod)
+    
+    # Convert date to character for better labeling
+    TCEHY$Date<- as.character(TCEHY$Date)
+    
+    # Create a candlestick chart
+    fig_lr_d <- plot_ly(data = TCEHY, type = "candlestick",
+                   x = ~Date, open = ~LogReturn_Open, high = ~LogReturn_High, low = ~LogReturn_Low, close = ~LogReturn_Last,
+                   increasing = list(fillcolor = "green", line = list(color = "green")),
+                   decreasing = list(fillcolor = "red", line = list(color = "red")))
+    fig_lr_d <- fig_lr_d %>% layout(title = "TCEHY Daily Return Candlestick Chart", xaxis = list(title = "Date"), yaxis = list(title = "Price"))
+    
+    # Display the chart
+    fig_lr_d
+
+  # WEEKLY
+  
+  # Load libraries
+  library(plotly)
+  library(quantmod)
+  
+  # Convert date to character for better labeling
+  TCEHY$Date<- as.character(TCEHY$Date)
+  
+  # Create a candlestick chart
+  fig_lr_w <- plot_ly(data = TCEHY, type = "candlestick",
+                      x = ~Date, open = ~LogReturn_Open_w, high = ~LogReturn_High_w, low = ~LogReturn_Low_w, close = ~LogReturn_Last_w,
+                      increasing = list(fillcolor = "green", line = list(color = "green")),
+                      decreasing = list(fillcolor = "red", line = list(color = "red")))
+  fig_lr_w <- fig_lr_w %>% layout(title = "TCEHY Weekly Return Candlestick Chart", xaxis = list(title = "Date"), yaxis = list(title = "Price"))
+  
+  # Display the chart
+  fig_lr_w
+  
+  # MONTHLY
+  
+  # Load libraries
+  library(plotly)
+  library(quantmod)
+  
+  # Convert date to character for better labeling
+  monthly_returns_TCEHY$Month<- as.character(monthly_returns_TCEHY$Month)
+  
+  # Create a candlestick chart
+  fig_lr_m <- plot_ly(data = monthly_returns_TCEHY, type = "candlestick",
+                      x = ~Month, open = ~Open, high = ~High, low = ~Low, close = ~Last,
+                      increasing = list(fillcolor = "green", line = list(color = "green")),
+                      decreasing = list(fillcolor = "red", line = list(color = "red")))
+  fig_lr_m <- fig_lr_m %>% layout(title = "TCEHY Monthly Return Candlestick Chart", xaxis = list(title = "Date"), yaxis = list(title = "Price"))
+  
+  # Display the chart
+  fig_lr_m
+  
+  # YEARLY
+  
+  # Load libraries
+  library(plotly)
+  library(quantmod)
+  
+  # Convert date to character for better labeling
+  yearly_returns_TCEHY$Year<- as.character(yearly_returns_TCEHY$Year)
+  
+  # Create a candlestick chart
+  fig_lr_y <- plot_ly(data = yearly_returns_TCEHY, type = "candlestick",
+                      x = ~Year, open = ~Open, high = ~High, low = ~Low, close = ~Last,
+                      increasing = list(fillcolor = "green", line = list(color = "green")),
+                      decreasing = list(fillcolor = "red", line = list(color = "red")))
+  fig_lr_y <- fig_lr_y %>% layout(title = "TCEHY Yearly Return Candlestick Chart", xaxis = list(title = "Date"), yaxis = list(title = "Price"))
+  
+  # Display the chart
+  fig_lr_y
+  
+
+#--------------------------------------------------------------------------------------------------------------
+# On visual plots introducing moving averages on raw prices with windows 5, 21 and 63 
+# for weekly, monthly and quarterly averages respectively
+#--------------------------------------------------------------------------------------------------------------
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
