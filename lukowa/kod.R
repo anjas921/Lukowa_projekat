@@ -5,6 +5,8 @@ for (i in nrow(TCEHY)) {
   TCEHY$LogReturn_Last_w<-"/"
 }
 
+library(SciViews)
+
 # DNEVNI LOG RETURN (ovo proveriti posto nisam siguran jer sam to radio ranije)
 #prvo moraju da se naprave kolone u dataframe-u
 TCEHY$LogReturn_Open[i]<-0
@@ -213,11 +215,25 @@ colnames(TCEHY)[1]<-"Date"
 # for weekly, monthly and quarterly averages respectively
 #--------------------------------------------------------------------------------------------------------------
 
-
+  library(zoo)
+  TCEHY$MA5 <- rollmean(TCEHY$Last, k = 5, fill = NA)
+  TCEHY$MA21 <- rollmean(TCEHY$Last, k = 21, fill = NA)
+  TCEHY$MA63 <- rollmean(TCEHY$Last, k = 63, fill = NA)
   
+  ggplot(TCEHY, aes(x = Date, y = Last,group = 1)) + geom_line() + labs(x = "Date", y = "Price", title = "Raw Prices")
   
+  ggplot(TCEHY, aes(x = Date, y = Last,group = 1)) +
+    geom_line() +
+    geom_line(aes(y = MA5,group = 1), color = "blue", linetype = "dashed") +
+    geom_line(aes(y = MA21,group = 1), color = "green", linetype = "dashed") +
+    geom_line(aes(y = MA63,group = 1), color = "red", linetype = "dashed") +
+    labs(x = "Date", y = "Price", title = "Moving Averages") +
+    scale_linetype_manual(values = c("solid", "dashed", "dotted"))
   
-  
+#--------------------------------------------------------------------------------------------------------------
+# Using all the gathered information from descriptive measures, returns and moving averages,
+# rating companies based on price levels of their stock
+#--------------------------------------------------------------------------------------------------------------
   
   
   
